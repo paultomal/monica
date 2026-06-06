@@ -24,6 +24,7 @@ class Label extends Model
         'name',
         'slug',
         'description',
+	'tag_category',
         'bg_color',
         'text_color',
     ];
