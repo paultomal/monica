@@ -1,4 +1,4 @@
-# Envobyte Assignment — Monica Tag System Extension
+# Monica Tag System Extension
 
 ## Approach
 
