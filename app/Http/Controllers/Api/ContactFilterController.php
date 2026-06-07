@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\Vault;
 use Illuminate\Http\Request;
 
 class ContactFilterController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, Vault $vault)
     {
-        $query = Contact::where('vault_id', $request->user()->currentVault->id);
+        $query = Contact::where('vault_id', $vault->id);
 
         if ($request->has('tags') && count($request->tags) > 0) {
             $tagIds = $request->tags;

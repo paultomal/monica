@@ -23,13 +23,13 @@ Route::middleware('auth:sanctum')->name('api.')->group(function () {
     // vaults
     Route::apiResource('vaults', VaultController::class);
 
-    // tags
-    Route::apiResource('tags', \App\Http\Controllers\Api\TagController::class)->except(['show']);
+    // tags (scoped under vault)
+    Route::prefix('vaults/{vault}')->group(function () {
+        Route::apiResource('tags', \App\Http\Controllers\Api\TagController::class)->except(['show']);
+        Route::post('contacts/{contact}/tags', [\App\Http\Controllers\Api\ContactTagController::class, 'attach']);
+        Route::delete('contacts/{contact}/tags/{tag}', [\App\Http\Controllers\Api\ContactTagController::class, 'detach']);
+        Route::get('contacts', [\App\Http\Controllers\Api\ContactFilterController::class, 'index']);
+    });
 
-    // contact tags
-    Route::post('contacts/{contact}/tags', [\App\Http\Controllers\Api\ContactTagController::class, 'attach']);
-    Route::delete('contacts/{contact}/tags/{tag}', [\App\Http\Controllers\Api\ContactTagController::class, 'detach']);
 
-    // contacts with tag filtering
-    Route::get('contacts', [\App\Http\Controllers\Api\ContactFilterController::class, 'index']);
 });
